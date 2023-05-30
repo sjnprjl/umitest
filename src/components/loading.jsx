@@ -1,9 +1,14 @@
 import styles from "./loading.module.css";
 export function Loading() {
   return (
-    <div className={"flex flex-col items-center justify-center h-screen w-screen"}>
+    <div
+      className={
+        "flex flex-col items-center justify-center h-screen w-screen " +
+        styles["container"]
+      }
+    >
       <div className="text-center text-xl mb-5">
-        {"You are being redirected to"}
+        {"You are being redirected to "}
         <span className="font-bold">{"LenDenClub's"}</span>
         <p>{"website for AutoPay Setup"}</p>
       </div>

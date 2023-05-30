@@ -19,7 +19,7 @@ export function ApproveRequest() {
       <section className="mt-4">
         <header className="flex gap-x-2">
           <div className="pt-1">
-            <img src="/icons/green-check.svg" alt="green-check" />
+            <img src="icons/green-check.svg" alt="green-check" />
           </div>
           <div>
             <h2 className="text-lg font-semibold text-black">
@@ -42,9 +42,7 @@ export function ApproveRequest() {
                 1
               </span>
               <div className="w-64">
-                Open
-                <span className="font-bold">UPI APP</span>
-                on your phone
+                Open <span className="font-bold">UPI APP</span> on your phone
               </div>
             </li>
             <li className="px-2 py-4 gap-x-2 flex">
@@ -52,8 +50,7 @@ export function ApproveRequest() {
                 2
               </span>
               <div className="w-64">
-                Tap on
-                <span className="font-bold">Notifications</span>
+                Tap on <span className="font-bold">Notifications</span>
               </div>
             </li>
             <li className="px-2 py-4 gap-x-2 flex">
@@ -61,8 +58,7 @@ export function ApproveRequest() {
                 3
               </span>
               <div className="w-64">
-                Approve the pending Autopay request from
-                <span className="font-bold">LenDenClub</span>
+                Approve the pending Autopay request from <span className="font-bold">LenDenClub</span>
               </div>
             </li>
           </ul>
