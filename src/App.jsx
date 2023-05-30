@@ -8,10 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [currentRoute, setCurrentRoute] = useState("loading");
 
-  function handleSuccess() {
-    setCurrentRoute("approve-request");
-  }
-
   return (
     <div>
       <div className="bg-white shadow-md">
@@ -30,7 +26,7 @@ function App() {
         {currentRoute === "loading" ? (
           <Loading setCurrentRoute={setCurrentRoute} />
         ) : currentRoute === "form" ? (
-          <Form onAutoPayRequest={handleSuccess} />
+          <Form setCurrentRoute={setCurrentRoute} />
         ) : currentRoute === "approve-request" ? (
           <ApproveRequest />
         ) : undefined}

@@ -61,25 +61,19 @@ export function Loading(props) {
           window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}`;
         });
     } else {
-      if (
-        getApproveTimerInMilliSeconds() < 15 * 60000 &&
-        sharedStorage.getApproveStartDate()
-      ) {
-        setTimeout(function () {
-          setCurrentRoute("approve-request");
-        }, 2000);
-      } else {
         toast("Invalid URL Entered!");
-      }
     }
   }, [setCurrentRoute, sharedStorage]);
 
   return (
     <div
-      className={"flex flex-col items-center justify-center h-screen w-screen"}
+      className={
+        "flex flex-col items-center justify-center h-screen w-screen " +
+        styles["container"]
+      }
     >
       <div className="text-center text-xl mb-5">
-        {"You are being redirected to"}
+        {"You are being redirected to "}
         <span className="font-bold">{"LenDenClub's"}</span>
         <p>{"website for AutoPay Setup"}</p>
       </div>

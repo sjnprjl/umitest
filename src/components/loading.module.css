@@ -18,3 +18,10 @@
     transform: rotate(360deg);
   }
 }
+
+.container {
+  font-family: "Manrope", sans-serif !important;
+  font-weight: normal;
+  background: white;
+  margin-top: calc(-40px);
+}

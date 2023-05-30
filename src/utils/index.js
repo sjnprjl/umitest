@@ -42,11 +42,13 @@ export const setAppUrlParamsToLs = (appUrlParams) => {
  * @param null
  */
 export const getApproveTimerInMilliSeconds = () => {
+  const sharedStorage = new SharedStorage();
+
   const subscriptionValidUpto = new Date(
-    localStorage.getItem("subscription_valid_upto")
+    sharedStorage.getSubscriptionValidUpto()
   );
   const approveStartDateAddedTime = new Date(
-    localStorage.getItem("approve_start_date")
+    sharedStorage.getApproveStartDate()
   );
   approveStartDateAddedTime.setMinutes(
     approveStartDateAddedTime.getMinutes() + 15
@@ -69,14 +71,14 @@ export const getApproveTimerInMilliSeconds = () => {
   );
 
   // If approve_start_date is used previously
-  if (localStorage.getItem("used_approve_timer")) {
+  if (sharedStorage.getUsedApproveTimer()) {
     if (differenceInMilliSecondsUsingApproveStartTime < 0) return false;
     return differenceInMilliSecondsUsingApproveStartTime;
   }
 
   // Giving Maximum of 15 minutes for approve time
   if (differenceInMilliSecondsUsingSubscriptionTime > 15 * 60000) {
-    localStorage.setItem("used_approve_timer", true);
+    sharedStorage.setUsedApproveTimer(true);
     if (differenceInMilliSecondsUsingApproveStartTime < 0) return false;
     return differenceInMilliSecondsUsingApproveStartTime;
   } else {

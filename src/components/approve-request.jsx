@@ -8,6 +8,7 @@ import {
 import { fetchJSONWithToken } from "../api";
 import { SharedStorage } from "../utils/SharedStorage";
 
+const MAX_COUNTDOWN = 15 * 60; // 15 minutes
 export function ApproveRequest() {
   const { time, setIsActive } = useCountdown(
     getApproveTimerInMilliSeconds() / 1000 ?? 0
@@ -23,7 +24,6 @@ export function ApproveRequest() {
   useEffect(() => {
     if (time <= 0) {
       setIsActive(false);
-      sharedStorage.removeApproveStartDate();
       window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}`;
     }
   }, [appUrlParams, setIsActive, time, sharedStorage]);
@@ -46,11 +46,9 @@ export function ApproveRequest() {
 
           switch (state) {
             case "COMPLETED":
-              sharedStorage.clear();
               window.location.href = `${appUrlParams.redirectUrl}?status=success&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}`;
               break;
             case "FAILED":
-              sharedStorage.clear();
               window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}`;
               break;
             default:
@@ -82,7 +80,7 @@ export function ApproveRequest() {
       <section className="mt-4">
         <header className="flex gap-x-2">
           <div className="pt-1">
-            <img src="/icons/green-check.svg" alt="green-check" />
+            <img src="icons/green-check.svg" alt="green-check" />
           </div>
           <div>
             <h2 className="text-lg font-semibold text-black">
@@ -105,9 +103,7 @@ export function ApproveRequest() {
                 1
               </span>
               <div className="w-64">
-                Open
-                <span className="font-bold">UPI APP</span>
-                on your phone
+                Open <span className="font-bold">UPI APP</span> on your phone
               </div>
             </li>
             <li className="px-2 py-4 gap-x-2 flex">
@@ -115,8 +111,7 @@ export function ApproveRequest() {
                 2
               </span>
               <div className="w-64">
-                Tap on
-                <span className="font-bold">Notifications</span>
+                Tap on <span className="font-bold">Notifications</span>
               </div>
             </li>
             <li className="px-2 py-4 gap-x-2 flex">
@@ -124,7 +119,7 @@ export function ApproveRequest() {
                 3
               </span>
               <div className="w-64">
-                Approve the pending Autopay request from
+                Approve the pending Autopay request from{" "}
                 <span className="font-bold">LenDenClub</span>
               </div>
             </li>
@@ -135,6 +130,7 @@ export function ApproveRequest() {
         <div className="w-full h-1 bg-ui-gray rounded-full">
           <div
             id="progress"
+            style={{ width: (time / MAX_COUNTDOWN) * 100 + "%" }}
             className="h-full bg-ui-primary transition-all"
           ></div>
         </div>

@@ -1,10 +1,14 @@
 import { SharedStorage } from "./utils/SharedStorage";
 
 export async function verifyUpiID() {
+  return pSetTimeout(() => true, 5000);
+}
+
+function pSetTimeout(cb, time) {
   return new Promise((res, _) => {
     setTimeout(() => {
-      res(true);
-    }, 5000);
+      res(cb());
+    }, time);
   });
 }
 

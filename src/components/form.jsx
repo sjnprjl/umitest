@@ -17,7 +17,7 @@ export function Form(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    
+
     setLoading(true);
     fetchJSONWithToken(`/mandate-vpa-verify?vpa=${upiId}`)
       .then(() => {
@@ -72,7 +72,7 @@ export function Form(props) {
         sharedStorage.setApproveStartDate(currentDate.toString());
 
         setLoading(false);
-        props?.onAutoPayRequest();
+        props.setCurrentRoute('approve-request');
       })
       .catch((err) => {
         if (err.code === "4005") {
