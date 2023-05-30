@@ -2,11 +2,17 @@ import { useEffect } from "react";
 import { useCountdown } from "../hooks/useCountdown";
 import { formatTime } from "../utils";
 
+const MAX_COUNTDOWN = 15 * 60; // 15 minutes
 export function ApproveRequest() {
-  const { time, setIsActive } = useCountdown();
+  const { time, setIsActive } = useCountdown(MAX_COUNTDOWN);
   useEffect(() => {
     setIsActive(true);
   }, [setIsActive]);
+
+  useEffect(() => {
+    if (time <= 0) setIsActive(false);
+  }, [time, setIsActive]);
+
   return (
     <div className="rounded-2xl bg-transparent-black p-9 shadow-lg max-w-md">
       <header>
@@ -58,7 +64,8 @@ export function ApproveRequest() {
                 3
               </span>
               <div className="w-64">
-                Approve the pending Autopay request from <span className="font-bold">LenDenClub</span>
+                Approve the pending Autopay request from{" "}
+                <span className="font-bold">LenDenClub</span>
               </div>
             </li>
           </ul>
@@ -68,6 +75,7 @@ export function ApproveRequest() {
         <div className="w-full h-1 bg-ui-gray rounded-full">
           <div
             id="progress"
+            style={{ width: (time / MAX_COUNTDOWN) * 100 + "%" }}
             className="h-full bg-ui-primary transition-all"
           ></div>
         </div>
