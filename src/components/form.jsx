@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchJSONWithToken, parseErrorMessage } from "../api";
 import { Loader } from "./loader";
 import { getAppUrlParamsFromLs } from "../utils";
@@ -11,15 +11,24 @@ export function Form(props) {
   const [verified, setVerified] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allowAutoPayRequest, setAutoPayRequest] = useState(false);
+  const [disableVerifyButton, setDisableVerifyButton] = useState(true);
+
+  useEffect(() => {
+    if (upiId.length > 0) {
+      setDisableVerifyButton(false);
+    } else {
+      setDisableVerifyButton(true);
+    }
+  }, [upiId]);
 
   const appUrlParams = getAppUrlParamsFromLs();
-  const sharedStorage = useMemo(()=>new SharedStorage(), []);
+  const sharedStorage = useMemo(() => new SharedStorage(), []);
 
   function handleSubmit(e) {
     e.preventDefault();
 
     setLoading(true);
-    fetchJSONWithToken(`/mandate-vpa-verify?vpa=${upiId}`)
+    fetchJSONWithToken(`/mandate-vpa-verify/?vpa=${upiId}`)
       .then(() => {
         setVerified(true);
         setAutoPayRequest(true);
@@ -72,7 +81,7 @@ export function Form(props) {
         sharedStorage.setApproveStartDate(currentDate.toString());
 
         setLoading(false);
-        props.setCurrentRoute('approve-request');
+        props.setCurrentRoute("approve-request");
       })
       .catch((err) => {
         if (err.code === "4005") {
@@ -92,7 +101,11 @@ export function Form(props) {
         <header>
           <h1 className="text-lg font-semibold text-black">Autopay Setup</h1>
           <h2 className="mt-3 text-ui-gray text-sm">
-            Please setup Autopay for your {appUrlParams.source === 'sip' ? 'Systematic Investment' : 'Loan Repayment'} with UPI.
+            Please setup Autopay for your{" "}
+            {appUrlParams.source === "sip"
+              ? "Systematic Investment"
+              : "Loan Repayment"}{" "}
+            with UPI.
           </h2>
         </header>
         <section className="mt-6">
@@ -117,6 +130,7 @@ export function Form(props) {
                   ) : (
                     <button
                       id="verifyUPIButton"
+                      disabled={disableVerifyButton}
                       className="px-4 py-2 btn block w-full text-sm font-bold"
                     >
                       Verify

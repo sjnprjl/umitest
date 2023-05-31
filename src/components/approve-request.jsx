@@ -31,7 +31,7 @@ export function ApproveRequest() {
   useEffect(() => {
     const poll = () => {
       fetchJSONWithToken(
-        `/mandate-auth-request-status?auth_request_id=${sharedStorage.getAuthRequestId()}`
+        `/mandate-auth-request-status/?auth_request_id=${sharedStorage.getAuthRequestId()}`
       )
         .then((res) => {
           const data =

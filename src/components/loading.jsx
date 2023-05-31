@@ -32,7 +32,7 @@ export function Loading(props) {
         trackingId: appUrlParams.trackingId,
       });
 
-      fetchJSONWithToken("/get-subscription-details")
+      fetchJSONWithToken("/get-subscription-details/")
         .then((data) => {
           if (!data.data) {
             throw new Error("Invalid data");
