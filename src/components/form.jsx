@@ -37,7 +37,7 @@ export function Form(props) {
       })
       .catch((data) => {
         if (data.code === "4005") {
-          window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}`;
+          window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}&reason=token_expired`;
           return;
         }
 
@@ -85,10 +85,10 @@ export function Form(props) {
       })
       .catch((err) => {
         if (err.code === "4005") {
-          window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}`;
+          window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}&reason=token_expired`;
           return;
         }
-
+        
         setLoading(false);
         toast(parseErrorMessage(err));
       });

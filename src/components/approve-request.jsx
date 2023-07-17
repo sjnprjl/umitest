@@ -24,7 +24,7 @@ export function ApproveRequest() {
   useEffect(() => {
     if (time <= 0) {
       setIsActive(false);
-      window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}`;
+      window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}&reason=token_expired`;
     }
   }, [appUrlParams, setIsActive, time, sharedStorage]);
 
@@ -59,7 +59,9 @@ export function ApproveRequest() {
         .catch((err) => {
           if (err?.code === 4015 || err.name == "NetworkError") {
             setTimeout(poll, 3 * 1000);
-          } else {
+          }else if(err.code === "4005"){
+            window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}&reason=token_expired`;
+          }else{
             window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}`;
           }
         });

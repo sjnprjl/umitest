@@ -14,8 +14,8 @@ function pSetTimeout(cb, time) {
 
 //@ts-check
 
-// const BASEURL = `${window.location.origin}/apis/v1`;
-const BASEURL = `https://umitesting.lendenclub.com/apis/v1`;
+const BASEURL = `${window.location.origin}/apis/v1`;
+// const BASEURL = `https://umitesting.lendenclub.com/apis/v1`;
 
 /**
  * @param {string} url

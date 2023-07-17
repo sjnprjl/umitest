@@ -57,8 +57,12 @@ export function Loading(props) {
             }
           }, 2000);
         })
-        .catch(() => {
-          window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}`;
+        .catch((err) => {
+          if(err.code === "4005"){
+            window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}&reason=token_expired`;
+          }else{
+            window.location.href = `${appUrlParams.redirectUrl}?status=failure&tracking_id=${appUrlParams.trackingId}&source=${appUrlParams.source}`;
+          }
         });
     } else {
         toast("Invalid URL Entered!");
